@@ -57,8 +57,6 @@ namespace SerialServer
             byte[] res = new byte[k - u - 1];
             Array.Copy(bytes, u + 1, res, 0, k - u - 1);
             serialPort.WriteLine(res.Length.ToString());
-            ////bytes.CopyTo(res, u);
-            //string g = Encoding.UTF8.GetString(res);
         }
 
         static void configure()

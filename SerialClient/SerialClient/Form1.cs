@@ -21,8 +21,7 @@ namespace SerialClient
         public Form1()
         {
             InitializeComponent();
-            //timer1 = new Timer();
-            timer1.Interval = 1000;
+            timer1.Interval = 1000; 
 
         }
         public void toTB(string strDataToSend)
@@ -34,8 +33,8 @@ namespace SerialClient
             }
             else
             {
-            
-            textBoxAnswer.Text = strDataToSend;
+                
+            textBoxAnswer.AppendText (Environment.NewLine+strDataToSend);
         }
         }
         private void button1_Click(object sender, EventArgs e)
@@ -53,7 +52,6 @@ namespace SerialClient
 
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            //throw new NotImplementedException();
             byte[] bytes = new byte[serialPort.BytesToRead];
             serialPort.Read(bytes, 0, serialPort.BytesToRead);
             toTB(System.Text.Encoding.UTF8.GetString(bytes));
@@ -86,6 +84,7 @@ namespace SerialClient
             }
             serialPort.DataReceived += SerialPort_DataReceived;
             buttonStart.Enabled = true;
+            textBoxAnswer.Multiline = true;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -102,8 +101,6 @@ namespace SerialClient
         {
             try
             {
-                //strDataToSend = formDataToSend(textBoxMessage.Text, Convert.ToInt32(numericUpDownStart.Value), Convert.ToInt32(numericUpDownStop.Value));
-
                 timer1.Stop();
                 serialPort.Close();
                 buttonSettings.Enabled = true;
@@ -120,7 +117,6 @@ namespace SerialClient
         {
             try
             {
-                //strDataToSend = formDataToSend(textBoxMessage.Text, Convert.ToInt32(numericUpDownStart.Value), Convert.ToInt32(numericUpDownStop.Value));
                 serialPort.Open();
                 timer1.Start();
                 buttonSettings.Enabled = false;
@@ -136,7 +132,6 @@ namespace SerialClient
         {
             Random rnd = new Random();
             int counter = 0;
-            //throw new NotImplementedException();
             byte[] data= Encoding.UTF8.GetBytes(str);
             int length = data.Length;
             byte[] bytes= new byte[length+v1+v2+2];
@@ -174,6 +169,22 @@ namespace SerialClient
         {
             byte[] cmd = formDataToSend(textBoxMessage.Text, Convert.ToInt32(numericUpDownStart.Value), Convert.ToInt32(numericUpDownStop.Value));
             serialPort.Write(cmd,0,cmd.Length);
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if(checkBox1.Checked)
+            {
+                textBoxAnswer.ScrollBars -= ScrollBars.Vertical;
+                textBoxAnswer.ScrollToCaret();
+                textBoxAnswer.SetBounds(textBoxAnswer.Bounds.X, textBoxAnswer.Bounds.Y, textBoxAnswer.Width, 20);
+            }
+            else
+            {
+                textBoxAnswer.ScrollBars = ScrollBars.Vertical;
+                textBoxAnswer.SetBounds(textBoxAnswer.Bounds.X, textBoxAnswer.Bounds.Y, textBoxAnswer.Width, 100);
+                //tableLayoutPanel1.co
+            }
         }
     }
 }

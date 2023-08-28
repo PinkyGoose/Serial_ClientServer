@@ -31,9 +31,8 @@ namespace SerialClient
             PortSettings.Default.DataBits = serialPort.DataBits;
             PortSettings.Default.StopBits = serialPort.StopBits;
             PortSettings.Default.Parity = serialPort.Parity;
-            Properties.Settings.Default.Save(); //Saves settings 
+            Properties.Settings.Default.Save();
             PortSettings.Default.Save ();
-            //Properties.Settings
 
         }
 
